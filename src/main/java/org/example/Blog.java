@@ -1,15 +1,40 @@
 package org.example;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
+@Table(name = "blogs")
 public class Blog {
     @Id
     private int id;
 
     private String title;
     private String content;
+
+    @OneToMany(mappedBy = "blog")
+    private List<Tag> tags = new ArrayList<>();
+
+    @ManyToMany(mappedBy = "blogs")
+    private List<Picture> pictures = new ArrayList<>();
+
+    public List<Picture> getPictures() {
+        return pictures;
+    }
+
+    public void setPictures(List<Picture> pictures) {
+        this.pictures = pictures;
+    }
+
+    public List<Tag> getTags() {
+        return tags;
+    }
+
+    public void setTags(List<Tag> tags) {
+        this.tags = tags;
+    }
 
     public int getId() {
         return id;
